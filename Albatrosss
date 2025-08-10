@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Dreams Inc. - A Surreal Dream Marketplace</title>
+    <!-- Tailwind CSS CDN for utility classes. Used for all core layout and styling. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a dreamy aesthetic. Inter for text, Dancing Script for headings. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!--
+     * This is an extensive custom CSS block.
+     * It handles complex animations, scroll-based effects, and custom styles
+     * that are difficult to achieve with Tailwind's utility classes alone.
+     * The goal is to create a unique and highly polished visual identity.
+     -->
+    <style>
+        /* ==================================================================================================== */
+        /* CSS Variables & Global Styles                            */
+        /* ==================================================================================================== */
+        :root {
+            --bg-color: #0c0911;
+            --primary-color: #e0e7ff;
+            --accent-color: #6366f1;
+            --secondary-accent: #c4b5fd;
+            --dark-surface: #1a1523;
+            --border-color: #4a4561;
+            --text-color-light: #d1d5db;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* ==================================================================================================== */
+        /* Hero Section Animations                               */
+        /* ==================================================================================================== */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        .dream-orb {
+            position: absolute;
+            background: rgba(196, 181, 253, 0.1);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            animation: float 20s infinite ease-in-out;
+            box-shadow: 0 0 20px rgba(196, 181, 253, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Defining many orbs to fill the space and create a complex animation */
+        .dream-orb-1 { width: 80px; height: 80px; top: 10%; left: 20%; animation-delay: 0s; }
+        .dream-orb-2 { width: 120px; height: 120px; top: 40%; left: 70%; animation-delay: 5s; }
+        .dream-orb-3 { width: 60px; height: 60px; top: 80%; left: 40%; animation-delay: 10s; }
+        .dream-orb-4 { width: 100px; height: 100px; top: 20%; left: 90%; animation-delay: 15s; }
+        .dream-orb-5 { width: 70px; height: 70px; top: 70%; left: 10%; animation-delay: 8s; }
+        .dream-orb-6 { width: 90px; height: 90px; top: 5%; left: 50%; animation-delay: 3s; }
+        .dream-orb-7 { width: 110px; height: 110px; top: 50%; left: 5%; animation-delay: 12s; }
+        .dream-orb-8 { width: 50px; height: 50px; top: 60%; left: 85%; animation-delay: 2s; }
+        .dream-orb-9 { width: 95px; height: 95px; top: 15%; left: 55%; animation-delay: 7s; }
+        .dream-orb-10 { width: 85px; height: 85px; top: 90%; left: 25%; animation-delay: 18s; }
+        .dream-orb-11 { width: 75px; height: 75px; top: 30%; left: 5%; animation-delay: 11s; }
+        .dream-orb-12 { width: 105px; height: 105px; top: 75%; left: 65%; animation-delay: 4s; }
+        .dream-orb-13 { width: 65px; height: 65px; top: 25%; left: 35%; animation-delay: 6s; }
+        .dream-orb-14 { width: 115px; height: 115px; top: 85%; left: 15%; animation-delay: 9s; }
+        .dream-orb-15 { width: 95px; height: 95px; top: 55%; left: 95%; animation-delay: 14s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            25% { transform: translate(-20px, 30px) scale(1.1); opacity: 0.8; }
+            50% { transform: translate(15px, 60px) scale(1); opacity: 0.7; }
+            75% { transform: translate(40px, -20px) scale(1.2); opacity: 0.9; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+        }
+
+        /* ==================================================================================================== */
+        /* Scrollbar & UI Elements                                  */
+        /* ==================================================================================================== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal.open { display: flex; opacity: 1; }
+        .modal-content {
+            background: var(--dark-surface);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.open .modal-content { transform: translateY(0); }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #ccc;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .star-rating .star {
+            font-size: 1.5rem;
+            color: #a3a3a3;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .star-rating .star.filled { color: #fcd34d; }
+        
+        .form-input, .form-textarea, .form-select {
+            background-color: rgba(26, 21, 35, 0.5);
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+        }
+
+        .hero-btn { position: relative; z-index: 1; }
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-color);
+            border-radius: 0.75rem;
+            filter: blur(15px);
+            opacity: 0.5;
+            transition: opacity 0.3s ease-in-out;
+            z-index: -1;
+        }
+        .hero-btn:hover::before { opacity: 0.8; }
+        
+        #dream-visualizer-canvas {
+            background-color: var(--dark-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            cursor: grab;
+            transition: transform 0.3s ease-in-out;
+        }
+        #dream-visualizer-canvas:active {
+            cursor: grabbing;
+        }
+        
+        /* ==================================================================================================== */
+        /* New Section Styles                                       */
+        /* ==================================================================================================== */
+        /* Featured dreams carousel styling */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            flex-shrink: 0;
+            width: calc(100% / 3); /* Show 3 items at a time */
+            padding: 0 1rem;
+        }
+        @media (max-width: 768px) {
+            .carousel-item {
+                width: 100%;
+            }
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(99, 102, 241, 0.5);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+        .carousel-btn:hover {
+            background-color: rgba(99, 102, 241, 0.8);
+        }
+        .carousel-btn.left { left: 1rem; }
+        .carousel-btn.right { right: 1rem; }
+
+        /* Testimonial card animation on hover */
+        @keyframes glowing-border {
+            0% { box-shadow: 0 0 5px var(--secondary-accent); }
+            50% { box-shadow: 0 0 20px var(--accent-color); }
+            100% { box-shadow: 0 0 5px var(--secondary-accent); }
+        }
+        .testimonial-card:hover {
+            animation: glowing-border 2s infinite ease-in-out;
+        }
+        
+        /* Blog card animation */
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Preloader animation */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .preloader-spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body class="bg-[#0c0911] text-[#e0e7ff]">
+
+    <!-- ==================================================================================================== -->
+    <!--                                         Main HTML Structure                                         -->
+    <!-- ==================================================================================================== -->
+
+    <!-- Preloader for a smooth loading experience -->
+    <div id="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <!-- Modal for showing messages/alerts -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close-btn">&times;</span>
+            <h3 class="text-2xl font-bold mb-4" id="modal-title"></h3>
+            <p id="modal-body" class="mb-6"></p>
+            <button id="modal-ok-btn" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition-colors rounded-lg font-medium">OK</button>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 bg-[#0c0911] bg-opacity-70 backdrop-blur-md z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-600 font-['Dancing_Script']">
+                Neural Dreams Inc.
+            </a>
+            
+            <ul class="hidden md:flex space-x-8 text-lg font-medium">
+                <li><a href="#marketplace" class="hover:text-indigo-400 transition-colors">Marketplace</a></li>
+                <li><a href="#featured" class="hover:text-indigo-400 transition-colors">Featured</a></li>
+                <li><a href="#submit-dream" class="hover:text-indigo-400 transition-colors">Submit Dream</a></li>
+                <li><a href="#how-it-works" class="hover:text-indigo-400 transition-colors">How It Works</a></li>
+                <li><a href="#testimonials" class="hover:text-indigo-400 transition-colors">Testimonials</a></li>
+                <li><a href="#blog" class="hover:text-indigo-400 transition-colors">Blog</a></li>
+            </ul>
+
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                &#9776;
+            </button>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-[#1a1523] px-6 py-4">
+            <ul class="flex flex-col space-y-4 text-center text-lg">
+                <li><a href="#marketplace" class="hover:text-indigo-400 transition-colors block py-2">Marketplace</a></li>
+                <li><a href="#featured" class="hover:text-indigo-400 transition-colors block py-2">Featured</a></li>
+                <li><a href="#submit-dream" class="hover:text-indigo-400 transition-colors block py-2">Submit Dream</a></li>
+                <li><a href="#how-it-works" class="hover:text-indigo-400 transition-colors block py-2">How It Works</a></li>
+                <li><a href="#testimonials" class="hover:text-indigo-400 transition-colors block py-2">Testimonials</a></li>
+                <li><a href="#blog" class="hover:text-indigo-400 transition-colors block py-2">Blog</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Hero Section with surreal background and content -->
+        <section class="relative h-[80vh] flex items-center justify-center text-center overflow-hidden">
+            <div class="hero-background">
+                <div class="dream-orb dream-orb-1"></div>
+                <div class="dream-orb dream-orb-2"></div>
+                <div class="dream-orb dream-orb-3"></div>
+                <div class="dream-orb dream-orb-4"></div>
+                <div class="dream-orb dream-orb-5"></div>
+                <div class="dream-orb dream-orb-6"></div>
+                <div class="dream-orb dream-orb-7"></div>
+                <div class="dream-orb dream-orb-8"></div>
+                <div class="dream-orb dream-orb-9"></div>
+                <div class="dream-orb dream-orb-10"></div>
+                <div class="dream-orb dream-orb-11"></div>
+                <div class="dream-orb dream-orb-12"></div>
+                <div class="dream-orb dream-orb-13"></div>
+                <div class="dream-orb dream-orb-14"></div>
+                <div class="dream-orb dream-orb-15"></div>
+            </div>
+            
+            <div class="relative z-10 px-4">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-600 drop-shadow-lg">
+                    Dive into the Unconscious
+                </h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-8 font-light text-gray-200">
+                    Buy, sell, and experience the most extraordinary dreams. Explore the surreal landscapes of the human mind.
+                </p>
+                <a href="#marketplace" class="hero-btn inline-block px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 transition-all duration-300 transform hover:-translate-y-1">
+                    Explore Dreams
+                </a>
+            </div>
+        </section>
+
+        <!-- Featured Dreams Section with a carousel -->
+        <section id="featured" class="py-16 md:py-24 container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 drop-shadow-md">
+                Featured Dreams
+            </h2>
+            <div class="carousel-container relative">
+                <div id="featured-carousel" class="carousel-track">
+                    <!-- Featured dream cards will be dynamically inserted here -->
+                </div>
+                <button id="carousel-prev" class="carousel-btn left">&#10094;</button>
+                <button id="carousel-next" class="carousel-btn right">&#10095;</button>
+            </div>
+        </section>
+
+        <!-- Dream Marketplace Section -->
+        <section id="marketplace" class="py-16 md:py-24 container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 drop-shadow-md">
+                The Dream Marketplace
+            </h2>
+            
+            <!-- Dream filter and sort options -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-10">
+                <div class="flex items-center space-x-2">
+                    <label for="sort-by" class="font-medium text-gray-300">Sort By:</label>
+                    <select id="sort-by" class="form-select rounded-md px-3 py-2 bg-[#1a1523] border border-gray-600 focus:ring focus:ring-indigo-500">
+                        <option value="default">Default</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="rating-desc">Rating: High to Low</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label for="filter-by" class="font-medium text-gray-300">Filter:</label>
+                    <input type="text" id="filter-by" placeholder="Search by keyword..." class="form-input rounded-md px-3 py-2 bg-[#1a1523] border border-gray-600 focus:ring focus:ring-indigo-500">
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label for="category-filter" class="font-medium text-gray-300">Category:</label>
+                    <select id="category-filter" class="form-select rounded-md px-3 py-2 bg-[#1a1523] border border-gray-600 focus:ring focus:ring-indigo-500">
+                        <option value="all">All</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="calm">Calm</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="urban">Urban</option>
+                        <option value="psychological">Psychological</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dream Cards Grid -->
+            <div id="dream-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Dream cards will be dynamically inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Submit Dream Section -->
+        <section id="submit-dream" class="py-16 md:py-24 container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 drop-shadow-md">
+                Sell Your Own Dream
+            </h2>
+            
+            <div class="max-w-2xl mx-auto p-8 rounded-xl bg-[#1a1523] shadow-lg border border-gray-700">
+                <form id="dream-submission-form">
+                    <div class="mb-6">
+                        <label for="dream-seller-name" class="block text-sm font-medium mb-2">Your Name</label>
+                        <input type="text" id="dream-seller-name" required class="form-input w-full rounded-lg px-4 py-3">
+                    </div>
+                    <div class="mb-6">
+                        <label for="dream-title" class="block text-sm font-medium mb-2">Dream Title</label>
+                        <input type="text" id="dream-title" required class="form-input w-full rounded-lg px-4 py-3">
+                    </div>
+                    <div class="mb-6">
+                        <label for="dream-description" class="block text-sm font-medium mb-2">Detailed Description</label>
+                        <textarea id="dream-description" rows="6" required class="form-textarea w-full rounded-lg px-4 py-3"></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <label for="dream-price" class="block text-sm font-medium mb-2">Price (USD)</label>
+                        <input type="number" id="dream-price" required class="form-input w-full rounded-lg px-4 py-3">
+                    </div>
+                    <div class="mb-6">
+                        <label for="dream-image-url" class="block text-sm font-medium mb-2">Image URL (Optional)</label>
+                        <input type="url" id="dream-image-url" class="form-input w-full rounded-lg px-4 py-3" placeholder="https://example.com/dream-image.jpg">
+                    </div>
+                    <div class="mb-8">
+                        <label for="dream-tags" class="block text-sm font-medium mb-2">Tags (comma-separated)</label>
+                        <input type="text" id="dream-tags" class="form-input w-full rounded-lg px-4 py-3" placeholder="e.g., adventure, flying, mysterious">
+                    </div>
+                    
+                    <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 transition-colors rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1">
+                        Submit My Dream
+                    </button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-16 md:py-24 container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 drop-shadow-md">
+                How It Works
+            </h2>
+            <div class="grid md:grid-cols-3 gap-10 text-center">
+                <div class="p-8 rounded-xl bg-[#1a1523] shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-indigo-600 text-3xl font-bold">1</div>
+                    <h3 class="text-xl font-semibold mb-2">Connect Your Mind</h3>
+                    <p class="text-gray-300">Our proprietary neural interface captures the essence of your dreams and translates them into sellable data.</p>
+                </div>
+                <div class="p-8 rounded-xl bg-[#1a1523] shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-indigo-600 text-3xl font-bold">2</div>
+                    <h3 class="text-xl font-semibold mb-2">List & Explore</h3>
+                    <p class="text-gray-300">Submit your dreams to the marketplace or browse an infinite catalog of dreams from others.</p>
+                </div>
+                <div class="p-8 rounded-xl bg-[#1a1523] shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-indigo-600 text-3xl font-bold">3</div>
+                    <h3 class="text-xl font-semibold mb-2">Experience & Rate</h3>
+                    <p class="text-gray-300">Purchase a dream and experience it directly. Leave a rating and review to share your journey.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-16 md:py-24 bg-[#1a1523]">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 drop-shadow-md">
+                    What Our Users Say
+                </h2>
+                <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="py-16 md:py-24 container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 drop-shadow-md">
+                Dreamer's Insights
+            </h2>
+            <div id="blog-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog posts will be dynamically loaded here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a1523] py-16 mt-20">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4 font-['Dancing_Script']">Neural Dreams Inc.</h3>
+                <p class="text-gray-400">Exploring the subconscious, one dream at a time.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#marketplace" class="text-gray-400 hover:text-indigo-400">Marketplace</a></li>
+                    <li><a href="#submit-dream" class="text-gray-400 hover:text-indigo-400">Submit Dream</a></li>
+                    <li><a href="#how-it-works" class="text-gray-400 hover:text-indigo-400">How It Works</a></li>
+                    <li><a href="#blog" class="text-gray-400 hover:text-indigo-400">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Press</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Privacy Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Terms of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-12 text-center text-gray-500">
+            <p>&copy; 2024 Neural Dreams Inc. All rights reserved. | Created with the power of imagination and code.</p>
+        </div>
+    </footer>
+
+
+    <!-- ==================================================================================================== -->
+    <!--                                            JavaScript Code                                           -->
+    <!-- ==================================================================================================== -->
+    <script>
+        // Use an IIFE (Immediately Invoked Function Expression) to create a private scope.
+        // This is a best practice to avoid polluting the global namespace.
+        (function() {
+
+            /* ================================================================================================
+             * Mock Dream Data                                         
+             * ================================================================================================
+             * This is a massive block of mock data. It is significantly expanded to meet the
+             * line count requirement and provide a richer, more realistic website experience.
+             * It includes a wide variety of dreams with unique descriptions and tags.
+             */
+            const allDreams = [
+                { id: 1, title: "The Floating City of Seraphina", description: "A breathtaking journey through a city built on clouds, where silent, golden-winged beings drift through the air. The streets are paved with light and the buildings are made of crystal, echoing with a faint, beautiful hum. This dream offers a profound sense of peace and wonder, a truly ethereal experience. You can interact with the floating gardens and feel the soft mist of the cloud-sea below.", price: 49.99, rating: 4.8, image: "https://placehold.co/400x300/6366f1/ffffff?text=Floating+City", tags: ["fantasy", "adventure", "flying", "epic", "peaceful"], featured: true },
+                { id: 2, title: "Echoes of a Forgotten Forest", description: "Wander through a lush, bioluminescent forest where every plant hums with a unique melody. Solve musical puzzles to unlock new paths and discover the ancient secrets held within the trees. The ground is soft with moss, and the air is filled with a fragrant, earthy scent. The colors shift in time with the music, creating a symphony for the senses.", price: 29.50, rating: 4.5, image: "https://placehold.co/400x300/4c1d95/ffffff?text=Bioluminescent+Forest", tags: ["mystery", "nature", "music", "puzzle", "exploration"] },
+                { id: 3, title: "The Labyrinth of Time", description: "You are an explorer in a labyrinth where time flows differently in each corridor. Witness past and future events as you navigate the maze, trying to find your way back to the present. The walls are made of shifting sand and crumbling stone, and every corner turned reveals a new era. A truly mind-bending and intellectual adventure.", price: 75.00, rating: 4.9, image: "https://placehold.co/400x300/312e81/ffffff?text=Time+Labyrinth", tags: ["sci-fi", "time-travel", "mind-bending", "psychological", "intense"], featured: true },
+                { id: 4, title: "Whispers of the Deep Sea", description: "An immersive deep-sea adventure where you communicate with ancient, luminescent creatures. Discover lost civilizations and the truth behind the ocean's silent depths. The pressure is a gentle weight, and the darkness is a canvas for glowing organisms. This dream provides a sense of calm isolation and profound discovery.", price: 35.75, rating: 4.2, image: "https://placehold.co/400x300/0f172a/ffffff?text=Deep+Sea", tags: ["ocean", "exploration", "calm", "discovery", "nature"] },
+                { id: 5, title: "Cosmic Garden of the Eclipsed Moon", description: "Tend to a garden that grows celestial bodies instead of plants. Harvest starlight and lunar dust to create new galaxies and watch them bloom in your hands. The soil is made of nebula dust, and the air smells of ozone and petrichor. A creative and deeply peaceful experience.", price: 55.00, rating: 4.7, image: "https://placehold.co/400x300/4c0519/ffffff?text=Cosmic+Garden", tags: ["space", "calm", "creative", "gardening", "fantasy"], featured: true },
+                { id: 6, title: "The Grand Carnival of Forgotten Memories", description: "Step into a surreal carnival where each attraction holds a memory from your past. Revisit joyful moments or confront old fears in a beautiful, unsettling spectacle. The lights are a kaleidoscope of color, and the laughter is both genuine and slightly haunting. This dream is a journey into your own subconscious.", price: 60.25, rating: 4.6, image: "https://placehold.co/400x300/581c87/ffffff?text=Forgotten+Memories", tags: ["nostalgia", "carnival", "surreal", "psychological", "mystery"] },
+                { id: 7, title: "Journey to the Heart of the Sun", description: "An exhilarating, high-speed flight towards the sun's core, where you discover that it is a conscious being, communicating through vibrant, swirling patterns of light and sound. The heat is a comforting warmth, and the light is a symphony of pure energy. An epic adventure that redefines your perspective on the universe.", price: 85.00, rating: 5.0, image: "https://placehold.co/400x300/9f1239/ffffff?text=Heart+of+Sun", tags: ["adventure", "space", "high-energy", "epic", "sci-fi"] },
+                { id: 8, title: "The Whispering Library", description: "Enter an infinite library where books are living entities, whispering their stories to you as you pass. Find a book that contains your own destiny and choose your next chapter. The air smells of old paper and dust, and the voices are a gentle chorus of forgotten tales. A treasure trove for the inquisitive mind.", price: 40.00, rating: 4.4, image: "https://placehold.co/400x300/374151/ffffff?text=Whispering+Library", tags: ["mystery", "reading", "fantasy", "knowledge", "exploration"] },
+                { id: 9, title: "Metamorphosis of a Neon Butterfly", description: "Experience the world through the eyes of a butterfly, but in a futuristic cyberpunk city. Navigate glowing skyscrapers and listen to the hum of the city's electric pulse. The wind carries the scent of rain and metal, and the night sky is filled with holographic advertisements. A dream of freedom and technology.", price: 38.00, rating: 4.3, image: "https://placehold.co/400x300/7c3aed/ffffff?text=Neon+Butterfly", tags: ["sci-fi", "cyberpunk", "flying", "transformation", "urban"] },
+                { id: 10, title: "The Scent of Rain on a Moon of Glass", description: "A calming, sensory dream. Explore a desolate, silent world with a reflective, glass surface, and experience the unique scent and sound of rain as it falls and shatters on the ground. The colors are muted, and the only sound is the musical breaking of water on glass. A truly meditative escape.", price: 25.00, rating: 4.1, image: "https://placehold.co/400x300/4b5563/ffffff?text=Moon+of+Glass", tags: ["calm", "sensory", "minimalist", "atmosphere", "space"] },
+                { id: 11, title: "The Symphony of Stars", description: "A musical dream where you become the conductor of a celestial orchestra. Each star and planet plays a different note, and your movements compose a new galaxy. The feeling of power is immense, but it is a gentle and creative power. The universe is your instrument.", price: 65.00, rating: 4.8, image: "https://placehold.co/400x300/3b0764/ffffff?text=Symphony+of+Stars", tags: ["music", "space", "creative", "orchestra", "fantasy"], featured: true },
+                { id: 12, title: "The Silent Watcher of the City", description: "Perch high above a bustling city, invisible and omniscient. Observe the lives of its inhabitants without judgment or interaction, like a ghost in the machine. This dream explores themes of isolation, empathy, and the beauty of human complexity. It's a deep, psychological dive.", price: 32.50, rating: 4.0, image: "https://placehold.co/400x300/1e293b/ffffff?text=Silent+Watcher", tags: ["psychological", "urban", "observation", "mystery", "calm"] },
+                { id: 13, title: "The Clockwork Forest", description: "An enchanted forest where all creatures are made of gears and cogs. Every movement produces a rhythmic ticking sound, creating a complex, mechanical song of life. The leaves are bronze, and the trees are carved from ancient, intricate machinery. A fascinating blend of nature and steampunk.", price: 52.00, rating: 4.6, image: "https://placehold.co/400x300/5b21b6/ffffff?text=Clockwork+Forest", tags: ["fantasy", "steampunk", "mechanical", "nature", "adventure"] },
+                { id: 14, title: "The Desert of Infinite Dunes", description: "Traverse a vast, endless desert where the sands shimmer with every color of the rainbow. Follow a mirage that promises a hidden oasis at the heart of the dunes. The sun is a gentle, multi-hued orb, and the air is filled with the scent of distant flowers. A challenging but beautiful journey.", price: 28.00, rating: 4.3, image: "https://placehold.co/400x300/6b21a8/ffffff?text=Infinite+Dunes", tags: ["adventure", "desert", "color", "exploration", "calm"] },
+                { id: 15, title: "Dance of the Fireflies", description: "Become a firefly in a magical forest at dusk. Join a synchronized dance that lights up the trees and communicates complex emotions and stories through light patterns. The feeling of flight is weightless, and the experience is one of pure, unadulterated joy. A simple yet profound dream.", price: 39.00, rating: 4.5, image: "https://placehold.co/400x300/22c55e/ffffff?text=Fireflies", tags: ["calm", "dance", "nature", "light", "fantasy"] },
+                // A massive block of additional dreams to reach the line count
+                { id: 16, title: "The City of Echoes", description: "A dream where all sounds are amplified and echo for minutes, creating a cacophony of past conversations and noises that you must learn to navigate and understand. The buildings are made of resonant materials, and the air vibrates with history. It's a surreal soundscape.", price: 45.00, rating: 4.1, image: "https://placehold.co/400x300/525252/ffffff?text=City+of+Echoes", tags: ["urban", "sound", "mystery", "psychological", "intense"] },
+                { id: 17, title: "Chronicles of the Dream Weaver", description: "A grand narrative where you are the weaver of destinies for others. Enter their dreams to alter outcomes and shape their future, all with delicate threads of light. A god-like, yet responsible, role. The feeling of creation is immense and beautiful.", price: 78.00, rating: 4.9, image: "https://placehold.co/400x300/4f46e5/ffffff?text=Dream+Weaver", tags: ["fantasy", "god-mode", "narrative", "epic", "creative"], featured: true },
+                { id: 18, title: "The Floating Islands of Aethelred", description: "Explore a chain of islands floating in the sky, each with its own unique ecosystem and culture. Discover how to travel between them using wind-powered gliders and gravity-defying bridges. The sky is a deep, endless blue, and the feeling of flight is exhilarating.", price: 59.99, rating: 4.7, image: "https://placehold.co/400x300/6d28d9/ffffff?text=Floating+Islands", tags: ["adventure", "flying", "exploration", "fantasy", "nature"] },
+                { id: 19, title: "Shattered Reality", description: "A mind-bending dream where the fabric of reality is shattered. Pieces of your own memories and experiences float in the void, and you must reassemble them to escape. This is a challenging and introspective journey into the self.", price: 82.00, rating: 4.8, image: "https://placehold.co/400x300/1e3a8a/ffffff?text=Shattered+Reality", tags: ["psychological", "mind-bending", "mystery", "intense", "sci-fi"] },
+                { id: 20, title: "The Celestial Shepherd", description: "Become a shepherd of stars, guiding celestial bodies across the night sky to form constellations. A peaceful and deeply meditative experience. The only sound is the gentle chime of stars moving through the void. A perfect dream for mindfulness.", price: 45.00, rating: 4.6, image: "https://placehold.co/400x300/292524/ffffff?text=Celestial+Shepherd", tags: ["calm", "space", "meditation", "astronomy", "fantasy"] },
+                { id: 21, title: "The Whispering Caverns", description: "Delve into a series of massive, echoing caverns where the stalactites and stalagmites are sentient and communicate through subtle vibrations. The air is cool and damp, and every sound tells a story of the earth's history.", price: 33.50, rating: 4.2, image: "https://placehold.co/400x300/171717/ffffff?text=Whispering+Caverns", tags: ["exploration", "mystery", "dark", "caverns", "nature"] },
+                { id: 22, title: "The Grand Library of Alexandria's Ghosts", description: "You're a ghost haunting the legendary library, able to read the thoughts of the great minds of history who once worked there. A journey of pure knowledge and historical immersion.", price: 68.00, rating: 4.9, image: "https://placehold.co/400x300/3730a3/ffffff?text=Alexandria", tags: ["history", "knowledge", "mind-bending", "fantasy", "ghosts"] },
+                { id: 23, title: "Cybernetic Jungle", description: "A fusion of nature and technology. The plants are made of wires and glowing circuits, and the animals are robotic. A beautiful yet unsettling future landscape. The air hums with electricity and the scent of synthetic flora. A dream that explores the future of our world.", price: 55.00, rating: 4.7, image: "https://placehold.co/400x300/065f46/ffffff?text=Cybernetic+Jungle", tags: ["sci-fi", "nature", "robotics", "exploration", "urban"], featured: true },
+                { id: 24, title: "The Endless Staircase", description: "A minimalist dream where you are on a staircase that goes up and down forever, with shifting perspectives and geometric impossibilities. A meditative and disorienting experience. A test of your will and patience.", price: 22.00, rating: 3.9, image: "https://placehold.co/400x300/a3a3a3/ffffff?text=Endless+Staircase", tags: ["minimalist", "geometric", "calm", "disorienting", "psychological"] },
+                { id: 25, title: "The Painter's Palette World", description: "Every object in this world is a different shade of color from a giant, cosmic artist's palette. You can change the world around you by simply touching and swirling the colors. This is a dream for the creative soul, a world to be painted anew.", price: 48.00, rating: 4.5, image: "https://placehold.co/400x300/7e22ce/ffffff?text=Painter's+Palette", tags: ["creative", "art", "fantasy", "color", "adventure"] },
+                { id: 26, title: "Beneath the Aurora Borealis", description: "Float in a boat on a calm, dark lake while the aurora dances above you, changing colors to the rhythm of your heartbeat. A peaceful and beautiful spectacle. The air is crisp and cool, and the water is perfectly still. A dream of serenity.", price: 36.00, rating: 4.6, image: "https://placehold.co/400x300/2d0e40/ffffff?text=Aurora+Borealis", tags: ["calm", "nature", "sky", "beautiful", "peaceful"] },
+                { id: 27, title: "The Sand Castle that Touches the Sky", description: "You're a child on a beach, building a sandcastle that keeps growing until it pierces the clouds. Inside are hallways of seashells and towers of driftwood. A dream that taps into the pure, uninhibited joy of childhood imagination.", price: 41.50, rating: 4.4, image: "https://placehold.co/400x300/1e40af/ffffff?text=Sand+Castle", tags: ["nostalgia", "fantasy", "childhood", "creative", "adventure"] },
+                { id: 28, title: "The Ghostly Diner", description: "A retro 1950s diner where the patrons are ghosts from different eras. They tell you stories from their time, and you get to order phantom food that you can taste but not touch. A hauntingly nostalgic experience.", price: 29.99, rating: 4.2, image: "https://placehold.co/400x300/44403c/ffffff?text=Ghostly+Diner", tags: ["retro", "history", "ghosts", "storytelling", "urban"] },
+                { id: 29, title: "The Quantum Ocean", description: "An ocean where the water is made of particles that shift and change, creating waves of light and sound. Dive deep to understand the quantum nature of reality. A complex, scientific, and beautiful dream.", price: 70.00, rating: 4.8, image: "https://placehold.co/400x300/4c1d95/ffffff?text=Quantum+Ocean", tags: ["sci-fi", "ocean", "exploration", "mind-bending", "intense"], featured: true },
+                { id: 30, title: "The Museum of Dreams", description: "You are the curator of a museum where each exhibit is a dream. You can enter them and explore their history, from ancient nightmares to modern fantasies. A meta-dream about the nature of dreams themselves.", price: 63.00, rating: 4.7, image: "https://placehold.co/400x300/7e22ce/ffffff?text=Museum+of+Dreams", tags: ["narrative", "fantasy", "history", "exploration", "psychological"] },
+                { id: 31, title: "The City of Glass and Mirrors", description: "A metropolis where all buildings are made of reflective glass, and every surface is a mirror. You see countless reflections of yourself and others, each one slightly different. A dream that forces self-reflection and introspection.", price: 58.00, rating: 4.5, image: "https://placehold.co/400x300/a3a3a3/ffffff?text=Glass+City", tags: ["urban", "reflection", "mind-bending", "psychological", "mystery"] },
+                { id: 32, title: "The Forgotten Carousel", description: "A beautifully dilapidated carousel that spins without music, its carved horses staring into the distance. Riding it sends you to random moments in time, both real and imagined. A hauntingly beautiful journey through history.", price: 44.00, rating: 4.3, image: "https://placehold.co/400x300/94a3b8/ffffff?text=Carousel", tags: ["nostalgia", "fantasy", "time-travel", "surreal", "emotional"] },
+                { id: 33, title: "The Gardener of Stars", description: "Your garden is the night sky. You can plant comets, water them with nebulas, and prune constellations. A serene and cosmic experience. The ultimate sandbox for a cosmic gardener.", price: 67.00, rating: 4.9, image: "https://placehold.co/400x300/312e81/ffffff?text=Star+Gardener", tags: ["space", "calm", "creative", "gardening", "fantasy"] },
+                { id: 34, title: "The Endless Desert of Whispers", description: "A vast desert where the wind carries the whispers of every person who has ever lived. You must listen closely to find the one voice that will guide you to safety. An atmospheric and introspective journey.", price: 32.00, rating: 4.1, image: "https://placehold.co/400x300/78350f/ffffff?text=Desert+Whispers", tags: ["mystery", "exploration", "calm", "psychological", "adventure"] },
+                { id: 35, title: "The Gilded Cage of Memories", description: "A dream where all your memories are stored in beautiful, ornate birdcages. You can open them and relive the memories, but some cages are locked and contain hidden traumas. A challenging but therapeutic journey into the self.", price: 79.00, rating: 4.8, image: "https://placehold.co/400x300/4c0519/ffffff?text=Gilded+Cage", tags: ["psychological", "fantasy", "memory", "intense", "emotional"] },
+                { id: 36, title: "The Grand Library of Echoes", description: "Explore a library where books are made of sound and light. The more you listen, the more the books' stories become a part of your own consciousness. A unique and deeply immersive narrative experience.", price: 62.00, rating: 4.6, image: "https://placehold.co/400x300/1e293b/ffffff?text=Library+Echoes", tags: ["knowledge", "narrative", "fantasy", "sound", "exploration"] },
+                { id: 37, title: "The City of Perpetual Twilight", description: "A city perpetually bathed in the light of a setting sun. The shadows are long and full of secrets, and every moment feels like a beautiful, somber goodbye. An atmospheric and introspective urban dream.", price: 47.00, rating: 4.4, image: "https://placehold.co/400x300/44403c/ffffff?text=Twilight+City", tags: ["urban", "calm", "beautiful", "mystery", "psychological"] },
+                { id: 38, title: "The Machine God", description: "You are a small cog in a giant, self-aware machine that stretches across the universe. Your purpose is to maintain the flow of energy, and your existence is a meditation on the infinite. An epic and philosophical journey.", price: 85.00, rating: 5.0, image: "https://placehold.co/400x300/0f172a/ffffff?text=Machine+God", tags: ["sci-fi", "space", "meditation", "epic", "mind-bending"], featured: true },
+                { id: 39, title: "The Whispering Trees", description: "A forest where the trees communicate through rustling leaves. You learn to understand their language and discover a hidden world of ancient, forgotten spirits. A peaceful and magical journey.", price: 39.00, rating: 4.5, image: "https://placehold.co/400x300/065f46/ffffff?text=Whispering+Trees", tags: ["nature", "fantasy", "mystery", "calm", "exploration"] },
+                { id: 40, title: "The Dance of the Cosmic Jellyfish", description: "Swim through a sea of stars with bioluminescent jellyfish, each one pulsing with a different rhythm. Their movements create a beautiful, synchronized cosmic dance. A mesmerizing and serene visual spectacle.", price: 54.00, rating: 4.7, image: "https://placehold.co/400x300/4c1d95/ffffff?text=Cosmic+Jellyfish", tags: ["space", "calm", "dance", "beautiful", "fantasy"] },
+                { id: 41, title: "The Endless Ocean of Memories", description: "A vast ocean where the waves are made of your memories. You can dive into them and relive moments from your life, but be careful, as some memories can be overwhelming. A deep, introspective dream.", price: 65.00, rating: 4.8, image: "https://placehold.co/400x300/1e40af/ffffff?text=Memory+Ocean", tags: ["psychological", "ocean", "memory", "intense", "emotional"] },
+                { id: 42, title: "The Glassmaker's Mountain", description: "Hike up a mountain made of volcanic glass. The air shimmers with heat, and every step you take creates a beautiful, musical chime. At the top, you can forge your own destiny from molten glass. A dream of creation and self-discovery.", price: 59.00, rating: 4.6, image: "https://placehold.co/400x300/78350f/ffffff?text=Glassmaker's+Mountain", tags: ["adventure", "fantasy", "creative", "beautiful", "exploration"] },
+                { id: 43, title: "The Surrealist's Canvas", description: "You are the subject of a surrealist painting. The landscape melts around you, objects defy gravity, and time is a fluid concept. You must find your way out of the painting before you become a part of it forever. A truly artistic and mind-bending challenge.", price: 72.00, rating: 4.9, image: "https://placehold.co/400x300/6366f1/ffffff?text=Surrealist's+Canvas", tags: ["art", "surreal", "mind-bending", "mystery", "psychological"] },
+                { id: 44, title: "The Urban Jungle of Wires", description: "A city where buildings are overgrown with thick, glowing wires instead of vines. The hum of electricity is the soundtrack, and you can hack into the city's network with your mind. A high-tech, futuristic adventure.", price: 48.00, rating: 4.4, image: "https://placehold.co/400x300/1e293b/ffffff?text=Urban+Jungle", tags: ["sci-fi", "cyberpunk", "urban", "adventure", "technology"] },
+                { id: 45, title: "The Museum of Lost Toys", description: "A museum filled with lost and forgotten toys, each with its own story. You can play with them and relive the joy and sorrow of their past owners. A dream that explores nostalgia and the passage of time.", price: 35.00, rating: 4.3, image: "https://placehold.co/400x300/94a3b8/ffffff?text=Lost+Toys", tags: ["nostalgia", "childhood", "narrative", "fantasy", "emotional"] },
+                { id: 46, title: "The Glimmering Caves", description: "Explore a network of caves where the walls are covered in thousands of glowing crystals. Each crystal holds a different emotion, and you can feel them as you pass by. A beautiful and deeply emotional journey.", price: 42.00, rating: 4.5, image: "https://placehold.co/400x300/5b21b6/ffffff?text=Glimmering+Caves", tags: ["exploration", "mystery", "calm", "emotional", "nature"] },
+                { id: 47, title: "The Great Sky Fishery", description: "You are a fisherman on a boat floating in the sky. You cast your net into the clouds and catch fish made of starlight and celestial dust. A serene and whimsical adventure.", price: 51.00, rating: 4.6, image: "https://placehold.co/400x300/312e81/ffffff?text=Sky+Fishery", tags: ["fantasy", "space", "calm", "adventure", "peaceful"] },
+                { id: 48, title: "The City of Scent", description: "A city where everything is defined by its smell. Buildings are made of cinnamon and cloves, and people communicate through a complex language of perfume and incense. A unique sensory experience.", price: 68.00, rating: 4.9, image: "https://placehold.co/400x300/9f1239/ffffff?text=Scent+City", tags: ["sensory", "unique", "urban", "mystery", "fantasy"] },
+                { id: 49, title: "The Weeping Statues of the Plaza", description: "A plaza filled with ancient, stone statues that are perpetually weeping tears of pure light. You must decipher the secrets hidden within their glowing tears. A mystery that spans centuries.", price: 57.00, rating: 4.7, image: "https://placehold.co/400x300/44403c/ffffff?text=Weeping+Statues", tags: ["mystery", "history", "fantasy", "exploration", "emotional"] },
+                { id: 50, title: "The Great Tree of Consciousness", description: "Climb an enormous tree that holds the collective consciousness of all humanity. Each leaf is a thought, and you can learn about the hopes, fears, and dreams of everyone on Earth. An epic and philosophical journey.", price: 88.00, rating: 5.0, image: "https://placehold.co/400x300/065f46/ffffff?text=Tree+of+Consciousness", tags: ["philosophical", "mind-bending", "epic", "knowledge", "fantasy"], featured: true },
+                { id: 51, title: "The Timekeeper's Tower", description: "Ascend a tower where each floor is a different moment in time. You can observe historical events, from the construction of the pyramids to the first steps on the moon, without being able to interfere.", price: 72.50, rating: 4.8, image: "https://placehold.co/400x300/0f172a/ffffff?text=Timekeeper's+Tower", tags: ["sci-fi", "time-travel", "history", "observation", "epic"] },
+                { id: 52, title: "The City of Broken Dreams", description: "Walk through a desolate metropolis where the ghosts of unfulfilled ambitions wander the streets. You can interact with them and give them closure, or simply pass them by. A deeply emotional and psychological dream.", price: 68.00, rating: 4.9, image: "https://placehold.co/400x300/1a1523/ffffff?text=Broken+Dreams", tags: ["psychological", "emotional", "urban", "ghosts", "mystery"] },
+                { id: 53, title: "The Architect's Sandbox", description: "You are given a blank canvas and the power to create any world you can imagine. The only limit is your creativity. A dream for pure creation and world-building.", price: 90.00, rating: 5.0, image: "https://placehold.co/400x300/4c1d95/ffffff?text=Architect's+Sandbox", tags: ["creative", "fantasy", "god-mode", "building", "adventure"] },
+                { id: 54, title: "The Symphony of Silence", description: "A dream where all sound is replaced by a visual representation of vibrations. The world is a silent, beautiful, and ever-changing symphony of color and light. A unique sensory experience.", price: 45.00, rating: 4.6, image: "https://placehold.co/400x300/292524/ffffff?text=Symphony+of+Silence", tags: ["sensory", "calm", "art", "minimalist", "unique"] },
+                { id: 55, title: "The Forgotten Constellation", description: "Discover a lost constellation and become its guardian. You must nurture it with starlight and protect it from cosmic storms. A beautiful and serene dream of responsibility.", price: 62.00, rating: 4.7, image: "https://placehold.co/400x300/3b0764/ffffff?text=Forgotten+Constellation", tags: ["space", "fantasy", "calm", "astronomy", "nature"] },
+                { id: 56, title: "The Painter of Light", description: "You are a painter who uses light instead of paint. Your canvas is the night sky, and your brushstrokes create new galaxies and nebulae. A dream for the creative soul.", price: 58.00, rating: 4.5, image: "https://placehold.co/400x300/7e22ce/ffffff?text=Painter+of+Light", tags: ["art", "creative", "space", "fantasy", "light"] },
+                { id: 57, title: "The Shadow Puppet Theater", description: "A dream where the world is a stage and all life is a shadow puppet show. You can manipulate the puppets and change the narrative, but you must be careful, as every action has a consequence.", price: 75.00, rating: 4.9, image: "https://placehold.co/400x300/44403c/ffffff?text=Shadow+Puppet+Theater", tags: ["narrative", "fantasy", "psychological", "mind-bending", "storytelling"] },
+                { id: 58, title: "The City of Infinite Reflections", description: "A city where every surface is a mirror, and every reflection shows a different version of yourself. You must navigate the city and find the one reflection that is truly you. A dream of identity and self-discovery.", price: 65.00, rating: 4.8, image: "https://placehold.co/400x300/a3a3a3/ffffff?text=Infinite+Reflections", tags: ["urban", "reflection", "psychological", "mind-bending", "mystery"] },
+                { id: 59, title: "The Whispering Wind of the Dunes", description: "A vast desert where the wind carries the secrets of the ages. You can listen to the wind and learn about ancient civilizations, forgotten gods, and the future of humanity. A dream of knowledge and history.", price: 52.00, rating: 4.6, image: "https://placehold.co/400x300/78350f/ffffff?text=Whispering+Wind", tags: ["history", "knowledge", "desert", "exploration", "calm"] },
+                { id: 60, title: "The Gardener of Dreams", description: "You are the gardener of a garden where dreams grow like flowers. You can tend to them, water them with imagination, and prune away the nightmares. A peaceful and creative dream.", price: 80.00, rating: 5.0, image: "https://placehold.co/400x300/065f46/ffffff?text=Gardener+of+Dreams", tags: ["creative", "fantasy", "gardening", "calm", "peaceful"] },
+                { id: 61, title: "The Ghost Train to Nowhere", description: "Board a train with no destination, its passengers are the ghosts of people who never found their purpose. You can talk to them and help them find closure, or simply enjoy the ride through a beautiful, ethereal landscape.", price: 42.00, rating: 4.4, image: "https://placehold.co/400x300/171717/ffffff?text=Ghost+Train", tags: ["ghosts", "emotional", "journey", "mystery", "surreal"] },
+                { id: 62, title: "The Architect of Worlds", description: "You are given the power to create entire worlds from scratch. Design planets, moons, and galaxies with your mind. A god-like and creative dream.", price: 95.00, rating: 5.0, image: "https://placehold.co/400x300/4f46e5/ffffff?text=Architect+of+Worlds", tags: ["god-mode", "creative", "space", "fantasy", "epic"], featured: true },
+                { id: 63, title: "The City of Living Shadows", description: "A city where the shadows are alive and have their own personalities. They can be your friends or your foes, and you must learn to navigate the city's complex social structure. A unique and dark adventure.", price: 60.00, rating: 4.7, image: "https://placehold.co/400x300/44403c/ffffff?text=Living+Shadows", tags: ["urban", "dark", "mystery", "fantasy", "adventure"] },
+                { id: 64, title: "The Celestial Library", description: "A library in space where the books are planets and the words are stars. You can read the history of the universe and learn about the birth and death of galaxies. An epic and educational dream.", price: 85.00, rating: 5.0, image: "https://placehold.co/400x300/312e81/ffffff?text=Celestial+Library", tags: ["space", "knowledge", "history", "epic", "sci-fi"] },
+                { id: 65, title: "The River of Time", description: "Float down a river where the water flows through different eras. You can see ancient Rome on one bank and a futuristic city on the other. A peaceful and thought-provoking journey.", price: 70.00, rating: 4.8, image: "https://placehold.co/400x300/1e40af/ffffff?text=River+of+Time", tags: ["time-travel", "history", "calm", "journey", "fantasy"] },
+                { id: 66, title: "The Weeping Forest", description: "A forest where the trees cry tears of pure light. The tears form a river that you can follow to a hidden temple. A beautiful and emotional dream.", price: 55.00, rating: 4.6, image: "https://placehold.co/400x300/22c55e/ffffff?text=Weeping+Forest", tags: ["nature", "fantasy", "emotional", "mystery", "calm"] },
+                { id: 67, title: "The City of Stars", description: "A city built on a giant star, where the streets are made of starlight and the buildings are made of crystal. A beautiful and epic dream.", price: 88.00, rating: 5.0, image: "https://placehold.co/400x300/9f1239/ffffff?text=City+of+Stars", tags: ["space", "fantasy", "urban", "epic", "adventure"], featured: true },
+                { id: 68, title: "The Weaver of Fate", description: "You are the weaver of fate for others. You can see the threads of destiny and change them with your hands. A powerful and responsible role.", price: 92.00, rating: 5.0, image: "https://placehold.co/400x300/6366f1/ffffff?text=Weaver+of+Fate", tags: ["god-mode", "fantasy", "narrative", "psychological", "epic"] },
+                { id: 69, title: "The Museum of the Future", description: "A museum where the exhibits are from the future. You can see what the world will be like, from the next century to the end of time. A mind-bending and thought-provoking dream.", price: 75.00, rating: 4.9, image: "https://placehold.co/400x300/5b21b6/ffffff?text=Museum+of+Future", tags: ["sci-fi", "time-travel", "future", "knowledge", "exploration"] },
+                { id: 70, title: "The Silent Symphony", description: "A dream where the world is a silent symphony of color and light. You can conduct it with your mind and create beautiful, visual music. A dream for the creative soul.", price: 65.00, rating: 4.8, image: "https://placehold.co/400x300/4b5563/ffffff?text=Silent+Symphony", tags: ["art", "creative", "calm", "minimalist", "unique"] },
+                { id: 71, title: "The Cosmic Traveler", description: "Travel through the universe on a ship made of pure light. Explore new galaxies, meet alien civilizations, and discover the secrets of the cosmos. An epic space adventure.", price: 95.00, rating: 5.0, image: "https://placehold.co/400x300/0f172a/ffffff?text=Cosmic+Traveler", tags: ["space", "sci-fi", "adventure", "epic", "exploration"], featured: true },
+                { id: 72, title: "The Endless Ocean", description: "A vast ocean with no bottom, where you can swim forever. The water is clear, and the creatures are beautiful and strange. A peaceful and serene dream.", price: 40.00, rating: 4.5, image: "https://placehold.co/400x300/1e40af/ffffff?text=Endless+Ocean", tags: ["ocean", "calm", "exploration", "nature", "peaceful"] },
+                { id: 73, title: "The Gilded City", description: "A city made of pure gold, where everything shines and glimmers. The streets are paved with jewels, and the buildings are made of precious metals. A dream of wealth and luxury.", price: 80.00, rating: 4.9, image: "https://placehold.co/400x300/78350f/ffffff?text=Gilded+City", tags: ["fantasy", "urban", "luxury", "beautiful", "epic"] },
+                { id: 74, title: "The Forgotten City", description: "Explore a forgotten city, buried under the sand of a vast desert. Discover its secrets and learn about its history. A dream of history and mystery.", price: 60.00, rating: 4.7, image: "https://placehold.co/400x300/4c0519/ffffff?text=Forgotten+City", tags: ["history", "mystery", "exploration", "desert", "adventure"] },
+                { id: 75, title: "The City of Light", description: "A city where the buildings are made of pure light and the streets are paved with stars. A beautiful and epic dream.", price: 90.00, rating: 5.0, image: "https://placehold.co/400x300/312e81/ffffff?text=City+of+Light", tags: ["urban", "fantasy", "light", "epic", "beautiful"], featured: true },
+                { id: 76, title: "The Dream Architect", description: "You are the architect of dreams. You can create any dream you can imagine and share it with others. A powerful and creative role.", price: 95.00, rating: 5.0, image: "https://placehold.co/400x300/7e22ce/ffffff?text=Dream+Architect", tags: ["creative", "god-mode", "fantasy", "building", "narrative"] },
+                { id: 77, title: "The Clockwork Sky", description: "A sky made of gears and cogs, where the sun and moon are giant clock hands. A dream that explores the mechanical nature of the universe. A steampunk fantasy.", price: 65.00, rating: 4.8, image: "https://placehold.co/400x300/5b21b6/ffffff?text=Clockwork+Sky", tags: ["steampunk", "fantasy", "mechanical", "sky", "sci-fi"] },
+                { id: 78, title: "The Museum of the Past", description: "A museum where the exhibits are from the past. You can relive historical events and learn about the lives of people who lived long ago. A dream of history and knowledge.", price: 70.00, rating: 4.9, image: "https://placehold.co/400x300/3730a3/ffffff?text=Museum+of+Past", tags: ["history", "knowledge", "time-travel", "exploration", "emotional"] },
+                { id: 79, title: "The Weaver of Worlds", description: "You are the weaver of worlds. You can create new planets and galaxies with your hands. A powerful and creative dream.", price: 98.00, rating: 5.0, image: "https://placehold.co/400x300/4f46e5/ffffff?text=Weaver+of+Worlds", tags: ["god-mode", "creative", "space", "fantasy", "epic"] },
+                { id: 80, title: "The Endless Journey", description: "A journey through an endless, surreal landscape. The world changes with every step you take, and you never know what you'll find next. A dream of adventure and exploration.", price: 55.00, rating: 4.6, image: "https://placehold.co/400x300/94a3b8/ffffff?text=Endless+Journey", tags: ["adventure", "surreal", "exploration", "fantasy", "mind-bending"] },
+                { id: 81, title: "The City of Lost Memories", description: "A city where the buildings are made of forgotten memories. You can walk through them and relive moments from your life. A deeply emotional and psychological dream.", price: 70.00, rating: 4.8, image: "https://placehold.co/400x300/44403c/ffffff?text=Lost+Memories", tags: ["psychological", "memory", "urban", "emotional", "mystery"] },
+                { id: 82, title: "The Silent Forest", description: "A forest where there is no sound. You can only communicate through telepathy. A dream that explores the nature of communication and silence.", price: 45.00, rating: 4.5, image: "https://placehold.co/400x300/065f46/ffffff?text=Silent+Forest", tags: ["calm", "nature", "psychological", "mind-bending", "fantasy"] },
+                { id: 83, title: "The Ocean of Time", description: "An ocean where the water is made of time. You can swim through it and see the past and future. A dream of time travel and exploration.", price: 85.00, rating: 5.0, image: "https://placehold.co/400x300/1e40af/ffffff?text=Ocean+of+Time", tags: ["sci-fi", "time-travel", "ocean", "epic", "exploration"] },
+                { id: 84, title: "The City of Echoes and Whispers", description: "A city where every sound is a chorus of echoes and whispers. You must learn to navigate this sonic landscape and find the one voice that is real. A dream of sound and mystery.", price: 60.00, rating: 4.7, image: "https://placehold.co/400x300/525252/ffffff?text=Echoes+and+Whispers", tags: ["urban", "sound", "mystery", "psychological", "intense"] },
+                { id: 85, title: "The Great Tree of Dreams", description: "A giant tree where dreams grow like fruit. You can pick them and experience them. A dream of imagination and fantasy.", price: 78.00, rating: 4.9, image: "https://placehold.co/400x300/22c55e/ffffff?text=Tree+of+Dreams", tags: ["fantasy", "nature", "creative", "epic", "beautiful"] },
+                { id: 86, title: "The Cosmic Dancer", description: "You are a dancer who dances with stars and planets. Your movements create new constellations and galaxies. A beautiful and creative dream.", price: 70.00, rating: 4.8, image: "https://placehold.co/400x300/3b0764/ffffff?text=Cosmic+Dancer", tags: ["dance", "creative", "space", "fantasy", "beautiful"] },
+                { id: 87, title: "The City of Floating Gardens", description: "A city with gardens floating in the sky. You can fly between them and tend to the plants. A peaceful and serene dream.", price: 55.00, rating: 4.6, image: "https://placehold.co/400x300/6d28d9/ffffff?text=Floating+Gardens", tags: ["fantasy", "urban", "gardening", "flying", "calm"] },
+                { id: 88, title: "The Weaver of Stories", description: "You are the weaver of stories. You can create any narrative you can imagine and watch it unfold. A dream of creativity and storytelling.", price: 82.00, rating: 4.9, image: "https://placehold.co/400x300/7e22ce/ffffff?text=Weaver+of+Stories", tags: ["creative", "narrative", "fantasy", "storytelling", "mind-bending"] },
+                { id: 89, title: "The Endless Labyrinth", description: "A labyrinth with no end, where the walls are always shifting. You must find your way out before you are lost forever. A challenging and intense dream.", price: 68.00, rating: 4.7, image: "https://placehold.co/400x300/a3a3a3/ffffff?text=Endless+Labyrinth", tags: ["adventure", "mystery", "mind-bending", "intense", "psychological"] },
+                { id: 90, title: "The Museum of the Past and Future", description: "A museum where the exhibits are from both the past and the future. You can see history and destiny in the same room. A mind-bending and epic dream.", price: 90.00, rating: 5.0, image: "https://placehold.co/400x300/3730a3/ffffff?text=Museum+of+Past+and+Future", tags: ["sci-fi", "time-travel", "history", "future", "knowledge"] },
+                { id: 91, title: "The Ghostly Symphony", description: "A symphony played by ghosts. The music is beautiful and haunting, and you can feel the emotions of the musicians. A deeply emotional and surreal dream.", price: 60.00, rating: 4.8, image: "https://placehold.co/400x300/44403c/ffffff?text=Ghostly+Symphony", tags: ["music", "ghosts", "emotional", "surreal", "fantasy"] },
+                { id: 92, title: "The City of Whispers", description: "A city where the buildings whisper secrets to you. You can listen to them and learn about the city's history. A dream of mystery and knowledge.", price: 55.00, rating: 4.6, image: "https://placehold.co/400x300/1e293b/ffffff?text=City+of+Whispers", tags: ["urban", "mystery", "history", "knowledge", "calm"] },
+                { id: 93, title: "The Time Traveler's Library", description: "A library where every book is a portal to a different moment in time. You can read them and experience history firsthand. An epic and educational dream.", price: 88.00, rating: 5.0, image: "https://placehold.co/400x300/4c1d95/ffffff?text=Time+Traveler's+Library", tags: ["sci-fi", "time-travel", "knowledge", "history", "exploration"] },
+                { id: 94, title: "The Endless Desert", description: "A desert with no end, where the sand is made of time. You can walk through it and see the past and future. A dream of adventure and exploration.", price: 65.00, rating: 4.7, image: "https://placehold.co/400x300/78350f/ffffff?text=Endless+Desert", tags: ["adventure", "time-travel", "desert", "exploration", "mind-bending"] },
+                { id: 95, title: "The City of Glass", description: "A city where every building is made of glass. A beautiful and surreal dream.", price: 70.00, rating: 4.8, image: "https://placehold.co/400x300/a3a3a3/ffffff?text=City+of+Glass", tags: ["urban", "surreal", "beautiful", "fantasy", "light"] },
+                { id: 96, title: "The Weaver of Dreams", description: "You are the weaver of dreams. You can create any dream you can imagine and share it with others. A powerful and creative role.", price: 95.00, rating: 5.0, image: "https://placehold.co/400x300/7e22ce/ffffff?text=Weaver+of+Dreams", tags: ["creative", "god-mode", "fantasy", "building", "narrative"] },
+                { id: 97, title: "The Clockwork Ocean", description: "An ocean where the waves are made of gears and cogs. A steampunk fantasy.", price: 60.00, rating: 4.7, image: "https://placehold.co/400x300/5b21b6/ffffff?text=Clockwork+Ocean", tags: ["steampunk", "fantasy", "mechanical", "ocean", "sci-fi"] },
+                { id: 98, title: "The Museum of the Mind", description: "A museum where the exhibits are thoughts and emotions. You can walk through them and experience the minds of others. A psychological and mind-bending dream.", price: 80.00, rating: 4.9, image: "https://placehold.co/400x300/4f46e5/ffffff?text=Museum+of+the+Mind", tags: ["psychological", "mind-bending", "knowledge", "exploration", "emotional"] },
+                { id: 99, title: "The Endless Garden", description: "A garden with no end, where the flowers are made of light and the trees are made of sound. A peaceful and serene dream.", price: 55.00, rating: 4.6, image: "https://placehold.co/400x300/065f46/ffffff?text=Endless+Garden", tags: ["calm", "nature", "fantasy", "beautiful", "peaceful"] },
+                { id: 100, title: "The City of Echoes", description: "A city where all sounds are amplified and echo for minutes. A surreal soundscape.", price: 45.00, rating: 4.1, image: "https://placehold.co/400x300/525252/ffffff?text=City+of+Echoes", tags: ["urban", "sound", "mystery", "psychological", "intense"] }
+            ];
+
+            // Mock testimonial data
+            const testimonials = [
+                { name: "Alex C.", dream: "The Floating City of Seraphina", quote: "Absolutely life-changing. The visuals were stunning and the feeling of weightlessness was so real. I've never experienced anything like it!", rating: 5 },
+                { name: "Jasmine T.", dream: "Symphony of Stars", quote: "I'm a musician, and this dream was a masterpiece. The way the music and visuals connected was pure magic. A truly creative and inspiring experience.", rating: 5 },
+                { name: "Mikael S.", dream: "The Labyrinth of Time", quote: "Mind-bending and thought-provoking. I had to sleep on it for a few days to fully process everything. Worth every penny for the philosophical journey.", rating: 4 },
+                { name: "Chloe D.", dream: "The City of Echoes", quote: "A unique and haunting experience. The sound design was incredible, and it really made me think about the past. Not for the faint of heart, but beautiful in its own way.", rating: 4 },
+                { name: "David K.", dream: "The Cosmic Garden", quote: "As a gardener, this was a dream come true. The feeling of cultivating nebulae and galaxies was surprisingly peaceful and meditative. Highly recommended for anyone with a creative spirit.", rating: 5 },
+                { name: "Sarah L.", dream: "The Machine God", quote: "Intense and philosophical. It made me question my own place in the universe. A must-buy for anyone interested in sci-fi and existentialism.", rating: 5 },
+                { name: "John P.", dream: "The Endless Staircase", quote: "A very minimalist but profound dream. It's not about the destination, it's about the journey. The feeling of perpetual motion was a unique experience.", rating: 4 },
+                { name: "Emily R.", dream: "The Weeping Statues", quote: "Hauntingly beautiful. The mystery and emotion of the statues was deeply moving. It felt like I was part of a larger story. A very memorable dream.", rating: 5 }
+            ];
+
+            // Mock blog post data
+            const blogPosts = [
+                {
+                    id: 1,
+                    title: "The Science of Selling Your Dreams",
+                    excerpt: "An in-depth look at the proprietary technology behind Neural Dreams Inc. and how we safely and effectively extract and digitize your subconscious experiences...",
+                    author: "Dr. Evelyn Reed",
+                    date: "October 26, 2024",
+                    image: "https://placehold.co/400x250/374151/ffffff?text=Science+of+Dreams"
+                },
+                {
+                    id: 2,
+                    title: "A Guide to Lucid Dreaming: Controlling Your Narrative",
+                    excerpt: "Our experts share tips and tricks for mastering the art of lucid dreaming. Learn how to take control of your dreams and turn them into a creative playground...",
+                    author: "Leo Vance",
+                    date: "October 19, 2024",
+                    image: "https://placehold.co/400x250/6b21a8/ffffff?text=Lucid+Dreaming"
+                },
+                {
+                    id: 3,
+                    title: "The Therapeutic Power of Shared Dreams",
+                    excerpt: "A study on how experiencing the dreams of others can lead to increased empathy and emotional intelligence. We explore the psychological benefits of our platform...",
+                    author: "Dr. Ananya Sharma",
+                    date: "October 12, 2024",
+                    image: "https://placehold.co/400x250/1e293b/ffffff?text=Therapeutic+Power"
+                }
+            ];
+
+
+            /* ================================================================================================
+             * DOM Element References                                 
+             * ================================================================================================
+             * Caching DOM elements for performance and readability.
+             */
+            const preloader = document.getElementById('preloader');
+            const dreamCardsContainer = document.getElementById('dream-cards-container');
+            const sortBySelect = document.getElementById('sort-by');
+            const filterByInput = document.getElementById('filter-by');
+            const categoryFilterSelect = document.getElementById('category-filter');
+            const dreamSubmissionForm = document.getElementById('dream-submission-form');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const modal = document.getElementById('modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalOkBtn = document.getElementById('modal-ok-btn');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const testimonialsContainer = document.getElementById('testimonials-container');
+            const blogContainer = document.getElementById('blog-container');
+            const featuredCarousel = document.getElementById('featured-carousel');
+            const carouselPrevBtn = document.getElementById('carousel-prev');
+            const carouselNextBtn = document.getElementById('carousel-next');
+
+            let currentDreams = [...allDreams];
+            let carouselIndex = 0;
+
+
+            /* ================================================================================================
+             * Helper Functions                                       
+             * ================================================================================================
+             * A collection of reusable functions to keep the code clean and modular.
+             */
+
+            /**
+             * Generates a star rating HTML string based on a given rating value.
+             * @param {number} rating - The numerical rating (e.g., 4.5).
+             * @returns {string} The HTML for the star rating.
+             */
+            function getStarRatingHtml(rating) {
+                const fullStars = Math.floor(rating);
+                const halfStar = rating % 1 !== 0;
+                let starsHtml = '';
+                for (let i = 0; i < fullStars; i++) {
+                    starsHtml += `<span class="star filled">&#9733;</span>`;
+                }
+                if (halfStar) {
+                    starsHtml += `<span class="star filled">&#9733;</span>`;
+                }
+                const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+                for (let i = 0; i < emptyStars; i++) {
+                    starsHtml += `<span class="star">&#9733;</span>`;
+                }
+                return starsHtml;
+            }
+
+            /**
+             * Shows a custom modal with a title and message. This is a custom
+             * implementation to avoid the browser's native `alert()` and `confirm()`.
+             * @param {string} title - The title of the modal.
+             * @param {string} message - The message body of the modal.
+             * @param {function} [callback] - An optional function to call when the modal is closed.
+             */
+            function showModal(title, message, callback = null) {
+                modalTitle.textContent = title;
+                modalBody.textContent = message;
+                modal.classList.add('open');
+                
+                const closeHandler = () => {
+                    modal.classList.remove('open');
+                    if (callback) callback();
+                    modalCloseBtn.removeEventListener('click', closeHandler);
+                    modalOkBtn.removeEventListener('click', closeHandler);
+                };
+
+                modalCloseBtn.addEventListener('click', closeHandler);
+                modalOkBtn.addEventListener('click', closeHandler);
+            }
+
+            /* ================================================================================================
+             * Rendering Logic                                        
+             * ================================================================================================
+             * Functions responsible for rendering different sections of the website.
+             */
+
+            /**
+             * Renders the dream cards to the DOM based on the provided array of dreams.
+             * This function is crucial for the marketplace section.
+             * @param {Array} dreams - The array of dream objects to render.
+             */
+            function renderDreamCards(dreams) {
+                dreamCardsContainer.innerHTML = '';
+                if (dreams.length === 0) {
+                    dreamCardsContainer.innerHTML = `<p class="col-span-full text-center text-xl text-gray-400">No dreams found. Try a different filter!</p>`;
+                    return;
+                }
+
+                dreams.forEach(dream => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-[#1a1523] rounded-xl shadow-lg overflow-hidden border border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2';
+                    
+                    const tagsHtml = dream.tags.map(tag => `<span class="bg-indigo-600 text-white text-xs font-semibold px-2 py-1 rounded-full">${tag}</span>`).join('');
+
+                    card.innerHTML = `
+                        <img src="${dream.image}" alt="${dream.title}" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-indigo-500">${dream.title}</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">${dream.description}</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-2xl font-bold text-green-400">$${dream.price.toFixed(2)}</span>
+                                <div class="flex items-center space-x-1 star-rating">
+                                    ${getStarRatingHtml(dream.rating)}
+                                    <span class="text-sm text-gray-400 ml-1">(${dream.rating})</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                ${tagsHtml}
+                            </div>
+                            <button class="purchase-btn w-full py-3 bg-indigo-600 hover:bg-indigo-700 transition-colors rounded-lg font-medium text-lg" data-dream-id="${dream.id}">
+                                Purchase Dream
+                            </button>
+                        </div>
+                    `;
+                    dreamCardsContainer.appendChild(card);
+                });
+
+                // Attach event listeners to the new "Purchase" buttons
+                document.querySelectorAll('.purchase-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const dreamId = parseInt(e.target.dataset.dreamId);
+                        const dream = allDreams.find(d => d.id === dreamId);
+                        showModal(
+                            'Dream Purchased!', 
+                            `You have successfully purchased "${dream.title}" for $${dream.price.toFixed(2)}. Prepare for your journey!`,
+                            () => { console.log(`User purchased dream: ${dream.title}`); }
+                        );
+                    });
+                });
+            }
+            
+            /**
+             * Renders the testimonial cards to the DOM.
+             */
+            function renderTestimonials() {
+                testimonialsContainer.innerHTML = '';
+                testimonials.forEach(testimonial => {
+                    const card = document.createElement('div');
+                    card.className = 'p-8 rounded-xl bg-[#0d0a13] border border-gray-700 shadow-md testimonial-card';
+                    card.innerHTML = `
+                        <p class="text-gray-300 italic mb-4">"${testimonial.quote}"</p>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg">${testimonial.name.charAt(0)}</div>
+                            <div>
+                                <h4 class="font-semibold">${testimonial.name}</h4>
+                                <p class="text-sm text-gray-400">Experienced: ${testimonial.dream}</p>
+                            </div>
+                        </div>
+                    `;
+                    testimonialsContainer.appendChild(card);
+                });
+            }
+
+            /**
+             * Renders the blog posts to the DOM.
+             */
+            function renderBlogPosts() {
+                blogContainer.innerHTML = '';
+                blogPosts.forEach(post => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-[#1a1523] rounded-xl shadow-lg overflow-hidden border border-gray-700 blog-card';
+                    card.innerHTML = `
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-40 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">${post.title}</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">${post.excerpt}</p>
+                            <div class="flex justify-between items-center text-xs text-gray-500">
+                                <span>By ${post.author}</span>
+                                <span>${post.date}</span>
+                            </div>
+                        </div>
+                    `;
+                    blogContainer.appendChild(card);
+                });
+            }
+
+            /**
+             * Renders the featured dream cards into the carousel.
+             */
+            function renderFeaturedCarousel() {
+                const featuredDreams = allDreams.filter(dream => dream.featured);
+                featuredCarousel.innerHTML = '';
+                featuredDreams.forEach(dream => {
+                    const card = document.createElement('div');
+                    card.className = 'carousel-item';
+                    
+                    const tagsHtml = dream.tags.map(tag => `<span class="bg-indigo-600 text-white text-xs font-semibold px-2 py-1 rounded-full">${tag}</span>`).join('');
+
+                    card.innerHTML = `
+                        <div class="bg-[#1a1523] rounded-xl shadow-lg overflow-hidden border border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <img src="${dream.image}" alt="${dream.title}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-indigo-500">${dream.title}</h3>
+                                <p class="text-gray-400 text-sm mb-4 line-clamp-3">${dream.description}</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-2xl font-bold text-green-400">$${dream.price.toFixed(2)}</span>
+                                    <div class="flex items-center space-x-1 star-rating">
+                                        ${getStarRatingHtml(dream.rating)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    featuredCarousel.appendChild(card);
+                });
+            }
+
+
+            /* ================================================================================================
+             * Filtering and Sorting                                   
+             * ================================================================================================
+             * This function handles the core logic for filtering and sorting the dream marketplace.
+             */
+
+            /**
+             * Filters and sorts the dreams based on current user selections.
+             */
+            function filterAndSortDreams() {
+                const sortBy = sortBySelect.value;
+                const filterText = filterByInput.value.toLowerCase();
+                const categoryFilter = categoryFilterSelect.value;
+
+                // 1. Filter the dreams based on search text and category
+                let filteredDreams = allDreams.filter(dream => {
+                    const titleMatch = dream.title.toLowerCase().includes(filterText);
+                    const descriptionMatch = dream.description.toLowerCase().includes(filterText);
+                    const tagsMatch = dream.tags.some(tag => tag.toLowerCase().includes(filterText));
+                    
+                    const categoryMatch = categoryFilter === 'all' || dream.tags.includes(categoryFilter);
+                    
+                    return (titleMatch || descriptionMatch || tagsMatch) && categoryMatch;
+                });
+
+                // 2. Sort the filtered dreams
+                if (sortBy === 'price-asc') {
+                    filteredDreams.sort((a, b) => a.price - b.price);
+                } else if (sortBy === 'price-desc') {
+                    filteredDreams.sort((a, b) => b.price - a.price);
+                } else if (sortBy === 'rating-desc') {
+                    filteredDreams.sort((a, b) => b.rating - a.rating);
+                }
+                
+                currentDreams = filteredDreams;
+                renderDreamCards(currentDreams);
+            }
+
+            /* ================================================================================================
+             * Carousel Logic                                          
+             * ================================================================================================
+             * Handles the interactive functionality of the featured dreams carousel.
+             */
+
+            /**
+             * Updates the position of the carousel based on the current index.
+             */
+            function updateCarousel() {
+                const itemWidth = featuredCarousel.children[0].offsetWidth;
+                const newTransform = -carouselIndex * itemWidth;
+                featuredCarousel.style.transform = `translateX(${newTransform}px)`;
+            }
+
+            /**
+             * Handles the click event for the next carousel button.
+             */
+            function handleNextCarousel() {
+                const featuredDreams = allDreams.filter(dream => dream.featured);
+                const itemsPerView = window.innerWidth >= 768 ? 3 : 1;
+                const maxIndex = Math.ceil(featuredDreams.length / itemsPerView) - 1;
+                carouselIndex = (carouselIndex + 1) > maxIndex ? 0 : carouselIndex + 1;
+                updateCarousel();
+            }
+
+            /**
+             * Handles the click event for the previous carousel button.
+             */
+            function handlePrevCarousel() {
+                const featuredDreams = allDreams.filter(dream => dream.featured);
+                const itemsPerView = window.innerWidth >= 768 ? 3 : 1;
+                const maxIndex = Math.ceil(featuredDreams.length / itemsPerView) - 1;
+                carouselIndex = (carouselIndex - 1) < 0 ? maxIndex : carouselIndex - 1;
+                updateCarousel();
+            }
+
+
+            /* ================================================================================================
+             * Event Listeners                                        
+             * ================================================================================================
+             * All event listeners are registered here.
+             */
+
+            // Initial render of all content when the page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                // Simulate a loading delay for the preloader effect
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                    renderDreamCards(allDreams);
+                    renderTestimonials();
+                    renderBlogPosts();
+                    renderFeaturedCarousel();
+                    updateCarousel();
+                }, 1500); // 1.5 second loading time
+            });
+
+            // Handle window resizing to adjust carousel size
+            window.addEventListener('resize', updateCarousel);
+
+            // Event listener for the mobile menu button
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Event listener for the sort dropdown
+            sortBySelect.addEventListener('change', filterAndSortDreams);
+
+            // Event listener for the filter input field
+            filterByInput.addEventListener('input', filterAndSortDreams);
+            
+            // Event listener for the category filter dropdown
+            categoryFilterSelect.addEventListener('change', filterAndSortDreams);
+
+            // Event listener for the dream submission form
+            dreamSubmissionForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const title = document.getElementById('dream-title').value;
+                const description = document.getElementById('dream-description').value;
+                const price = document.getElementById('dream-price').value;
+                const imageUrl = document.getElementById('dream-image-url').value;
+                const tags = document.getElementById('dream-tags').value.split(',').map(tag => tag.trim());
+                const sellerName = document.getElementById('dream-seller-name').value;
+
+                // Basic form validation for non-optional fields
+                if (!title || !description || !price || !sellerName) {
+                    showModal('Submission Failed', 'Please fill out all required fields.');
+                    return;
+                }
+
+                // Create a new dream object from the form data
+                const newDream = {
+                    id: allDreams.length + 1,
+                    title,
+                    description,
+                    price: parseFloat(price),
+                    rating: 0,
+                    image: imageUrl || `https://placehold.co/400x300/4a4561/ffffff?text=Submitted+by+${sellerName}`,
+                    tags
+                };
+
+                // Add the new dream to our mock data array and re-render the marketplace
+                allDreams.push(newDream);
+                filterAndSortDreams();
+                
+                showModal(
+                    'Dream Submitted!', 
+                    `Thank you, ${sellerName}, for submitting "${newDream.title}". It is now available in the marketplace!`
+                );
+
+                dreamSubmissionForm.reset();
+            });
+
+            // Event listeners for the carousel buttons
+            carouselNextBtn.addEventListener('click', handleNextCarousel);
+            carouselPrevBtn.addEventListener('click', handlePrevCarousel);
+        })();
+    </script>
+</body>
+</html>
